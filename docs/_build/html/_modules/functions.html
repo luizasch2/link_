@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions &mdash; A1 - Queens 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> A1 - Queens
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">A1 - Queens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      <li>functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">pos_tag</span><span class="p">,</span> <span class="n">word_tokenize</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;averaged_perceptron_tagger&#39;</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span><span class="p">,</span> <span class="n">STOPWORDS</span><span class="p">,</span> <span class="n">ImageColorGenerator</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;stopwords&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+
+<div class="viewcode-block" id="maiores_menores_idx"><a class="viewcode-back" href="../index.html#functions.maiores_menores_idx">[docs]</a><span class="k">def</span> <span class="nf">maiores_menores_idx</span><span class="p">(</span><span class="n">df</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">indice_idx</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">grupo_idx</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">coluna</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">opcao</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Monta um DataFrame com os elementos de maiores e menores valores por grupo e salva suas visualizações no path </span>
+
+<span class="sd">   :param df: dataframe com indices individuais e multi-index</span>
+<span class="sd">   :type df: pd.DataFrame</span>
+<span class="sd">   :param indice_idx: nome do indice individual de cada elemento</span>
+<span class="sd">   :type indice_idx: str</span>
+<span class="sd">   :param grupo_idx: indice coletivo dos elementos</span>
+<span class="sd">   :type grupo_idx: str</span>
+<span class="sd">   :param coluna: nome da coluna a ser analisada</span>
+<span class="sd">   :type coluna: str</span>
+<span class="sd">   :param path: caminho da pasta aonde a img deve ser salva</span>
+<span class="sd">   :type path: str</span>
+<span class="sd">   :param opcao: 0 para retornar os menores elementos e 1 para os maiores</span>
+<span class="sd">   :type opcao: int</span>
+<span class="sd">   :return: retorna um df com os elementos de maiores e menores valores por grupo e salva suas visualizações no path</span>
+<span class="sd">   :rtype: pd.DataFrame</span>
+<span class="sd">   &quot;&quot;&quot;</span> 
+   <span class="n">mais_idx</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="n">menos_idx</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="n">grupos</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">grupo_idx</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">grupo</span> <span class="ow">in</span> <span class="n">grupos</span><span class="p">:</span>
+      <span class="n">mais</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">coluna</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">grupo</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">coluna</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+      <span class="n">menos</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">coluna</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">grupo</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">coluna</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+      <span class="n">mais_idx</span> <span class="o">+=</span> <span class="n">mais</span><span class="p">[</span><span class="n">coluna</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+      <span class="n">menos_idx</span> <span class="o">+=</span> <span class="n">menos</span><span class="p">[</span><span class="n">coluna</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+      <span class="n">mais_e_menos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mais</span><span class="p">,</span> <span class="n">menos</span><span class="p">],</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mais&quot;</span><span class="p">,</span> <span class="s2">&quot;menos&quot;</span><span class="p">])</span>
+
+      <span class="n">grafico</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">mais_e_menos</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;level_0&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">coluna</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="n">indice_idx</span><span class="p">)</span>
+      <span class="n">grafico</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">grupo</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+      <span class="n">grafico</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+   <span class="k">if</span> <span class="n">opcao</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">menos_idx</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">indice_idx</span><span class="p">)]</span>
+   <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">mais_idx</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">indice_idx</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="words"><a class="viewcode-back" href="../index.html#functions.words">[docs]</a><span class="k">def</span> <span class="nf">words</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Cria série pandas com todas as palavras de series</span>
+
+<span class="sd">   :param series: série cujas palavras serão retornadas como elementos de uma nova série</span>
+<span class="sd">   :type series: pd.Series</span>
+<span class="sd">   :return: série com todas as palavras presentes em &quot;series&quot; passado como parâmetro</span>
+<span class="sd">   :rtype: pd.Series</span>
+<span class="sd">   &quot;&quot;&quot;</span> 
+   <span class="n">words_series</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">series</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+         <span class="n">words_series</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">words_series</span><span class="p">)</span></div>
+   
+<div class="viewcode-block" id="words_n_stopwords"><a class="viewcode-back" href="../index.html#functions.words_n_stopwords">[docs]</a><span class="k">def</span> <span class="nf">words_n_stopwords</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Cria série pandas com as palavras de series que não são stopwords (i.e. pronomes e artigos)</span>
+
+<span class="sd">   :param series: série cujas palavras serão filtradas e retornadas como elementos de uma nova série</span>
+<span class="sd">   :type series: pd.Index</span>
+<span class="sd">   :return: série com as palavras que não são stopwords</span>
+<span class="sd">   :rtype: pd.Series</span>
+<span class="sd">   &quot;&quot;&quot;</span>   
+   <span class="n">stop_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">))</span>
+   <span class="n">n_stopwords</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">series</span><span class="p">)</span> <span class="k">if</span> <span class="n">word</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stop_words</span><span class="p">]</span>
+   <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">n_stopwords</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="wordcloud"><a class="viewcode-back" href="../index.html#functions.wordcloud">[docs]</a><span class="k">def</span> <span class="nf">wordcloud</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+   <span class="sd">&quot;&quot;&quot;Cria wordcloud de série</span>
+
+<span class="sd">   :param series: série pandas cujas palavras geraram o wordcloud</span>
+<span class="sd">   :type series: pd.Series</span>
+<span class="sd">   :param file: diretrizes para salvar o wordcloud</span>
+<span class="sd">   :type file: str</span>
+<span class="sd">   &quot;&quot;&quot;</span>   
+   <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">series</span><span class="p">))</span> <span class="c1"># une todas as palavras em uma única str</span>
+   <span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">()</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+   <span class="n">wordcloud</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span></div>
+
+<span class="c1"># palavras mais comuns na letra das músicas por álbum</span>
+<div class="viewcode-block" id="words_freq"><a class="viewcode-back" href="../index.html#functions.words_freq">[docs]</a><span class="k">def</span> <span class="nf">words_freq</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">indice</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">coluna</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;função retorna um dataframe com as frequencias das palavras mais freqentes da coluna por índice</span>
+
+<span class="sd">   :param df: dataframe com todas informações</span>
+<span class="sd">   :type df: pd.DataFrame</span>
+<span class="sd">   :param indice: nome do indice pelo qual as frequenciais devem ser agrupadas</span>
+<span class="sd">   :type indice: str</span>
+<span class="sd">   :param coluna: nome da coluna que contem as strings com as palavras a serem analisadas</span>
+<span class="sd">   :type coluna: str</span>
+<span class="sd">   :return: dataframe com as frequencias das palavras mais frequentes da coluna por indice</span>
+<span class="sd">   :rtype: pd.DataFrame</span>
+<span class="sd">   &quot;&quot;&quot;</span>  
+   <span class="n">indices</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">indice</span><span class="p">)</span>
+   <span class="n">words_df</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">album</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+      <span class="n">lyrics</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">album</span><span class="p">][</span><span class="n">coluna</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+      <span class="n">words_lyrics</span> <span class="o">=</span> <span class="n">words</span><span class="p">(</span><span class="n">lyrics</span><span class="p">)</span>
+      <span class="n">words_freq</span> <span class="o">=</span> <span class="n">words_lyrics</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+      <span class="n">words_idx</span> <span class="o">=</span> <span class="n">words_lyrics</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+      <span class="n">multi_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">([(</span><span class="n">album</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">words_idx</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="n">indice</span><span class="p">,</span> <span class="s2">&quot;word&quot;</span><span class="p">])</span>
+      <span class="n">words_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">words_freq</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">multi_idx</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;freq&quot;</span><span class="p">]))</span>
+
+   <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">words_df</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="nouns"><a class="viewcode-back" href="../index.html#functions.nouns">[docs]</a><span class="k">def</span> <span class="nf">nouns</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Cria série com todos substantivos presentes nos elementos da série passada como parâmetro</span>
+
+<span class="sd">   :param series: série que terá seus elementos analisados</span>
+<span class="sd">   :type series: pd.Series</span>
+<span class="sd">   :return: série apenas com os substantivos presentes na série passada como parâmetro</span>
+<span class="sd">   :rtype: pd.Series</span>
+<span class="sd">   &quot;&quot;&quot;</span>   
+   <span class="n">nouns</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">series</span><span class="p">:</span>
+      <span class="n">words</span> <span class="o">=</span> <span class="n">pos_tag</span><span class="p">(</span><span class="n">word_tokenize</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)))</span>
+      <span class="k">for</span> <span class="n">word</span><span class="p">,</span><span class="n">pos</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+         <span class="k">if</span> <span class="n">pos</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;NN&#39;</span><span class="p">):</span>
+               <span class="n">nouns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">nouns</span></div>
+
+<div class="viewcode-block" id="theme"><a class="viewcode-back" href="../index.html#functions.theme">[docs]</a><span class="k">def</span> <span class="nf">theme</span><span class="p">(</span><span class="n">series1</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">series2</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Checa se os substantivos de series1 estão na series2</span>
+
+<span class="sd">   :param series1: série pandas que origina os temas (substantivos)</span>
+<span class="sd">   :type series1: pd.Series</span>
+<span class="sd">   :param series2: série pandas onde os temas(substantivos) serão procurados</span>
+<span class="sd">   :type series2: pd.Series</span>
+<span class="sd">   :return: série pandas com os temas (substantivos) da series1 presentes na series2, de acordo com a frequencia</span>
+<span class="sd">   :rtype: pd.Series</span>
+<span class="sd">   &quot;&quot;&quot;</span>   
+   <span class="n">theme</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">noum</span> <span class="ow">in</span> <span class="n">nouns</span><span class="p">(</span><span class="n">series1</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">(</span><span class="n">series2</span><span class="p">):</span>
+         <span class="k">if</span> <span class="n">noum</span> <span class="o">==</span> <span class="n">word</span><span class="p">:</span>
+            <span class="n">theme</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">noum</span><span class="p">)</span>
+   <span class="n">theme</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">theme</span></div>
+
+<span class="c1">#Perguntas criadas:</span>
+<span class="c1"># Qual é a quantidade média de palavras por música?</span>
+
+<div class="viewcode-block" id="words_avg"><a class="viewcode-back" href="../index.html#functions.words_avg">[docs]</a><span class="k">def</span> <span class="nf">words_avg</span><span class="p">(</span><span class="n">series</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Calcula média de palavras entre os elementos de uma série</span>
+
+<span class="sd">   :param series: série com as letras das músicas</span>
+<span class="sd">   :type series: pd.Series</span>
+<span class="sd">   :return: média de palavras por música</span>
+<span class="sd">   :rtype: float</span>
+<span class="sd">   &quot;&quot;&quot;</span>   
+   <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">words</span><span class="p">(</span><span class="n">series</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">/</span><span class="n">series</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="duracao_album"><a class="viewcode-back" href="../index.html#functions.duracao_album">[docs]</a><span class="k">def</span> <span class="nf">duracao_album</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Retorna uma série com o nome das músicas e suas durações em ordem decrescente</span>
+
+<span class="sd">   :param df: dataframe que possui como um dos índices os nomes das músicas e uma de suas colunas é a duração da música</span>
+<span class="sd">   :type df: pd.DataFrame</span>
+<span class="sd">   :return: série com o nome das músicas e suas durações em ordem decrescente</span>
+<span class="sd">   :rtype: pd.Series</span>
+<span class="sd">   &quot;&quot;&quot;</span>  
+   <span class="k">return</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;duração&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;álbum&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;duração&quot;</span><span class="p">)[</span><span class="s2">&quot;duração&quot;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="palavras_duracao"><a class="viewcode-back" href="../index.html#functions.palavras_duracao">[docs]</a><span class="k">def</span> <span class="nf">palavras_duracao</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">lyrics</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">albuns</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;Verifica se a quantidade de palavras esta relacionada com o tempo da música</span>
+
+<span class="sd">   :param df: dataframe com todas informações</span>
+<span class="sd">   :type df: pd.DataFrame</span>
+<span class="sd">   :param lyrics: série com as letras das músicas</span>
+<span class="sd">   :type lyrics: pd.Series</span>
+<span class="sd">   :param albuns: serie com o nome dos álbuns</span>
+<span class="sd">   :type albuns: pd.Series</span>
+<span class="sd">   :return: retorna verdadeiro caso a quantidade de palavras esteja relacionada com a duração e falso caso não esteja </span>
+<span class="sd">   :rtype: bool</span>
+<span class="sd">   &quot;&quot;&quot;</span>   
+   <span class="n">duracao_list</span><span class="o">=</span><span class="p">[]</span>
+   <span class="k">for</span> <span class="n">album</span> <span class="ow">in</span> <span class="n">albuns</span><span class="p">:</span>
+      <span class="n">duracao</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">album</span><span class="p">][</span><span class="s1">&#39;duração&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+      <span class="n">duracao_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">duracao</span><span class="p">)</span>
+
+   <span class="n">duracao_musica</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">duracao_list</span><span class="p">)):</span>
+      <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">duracao_list</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+         <span class="k">if</span> <span class="n">duracao_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">duracao_musica</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">duracao_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">])</span>
+         <span class="k">else</span><span class="p">:</span> 
+            <span class="k">continue</span>
+   
+   <span class="n">palavras_musica</span> <span class="o">=</span> <span class="p">[]</span>
+   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">lyrics</span><span class="p">)):</span>
+      <span class="n">qnt_palavras</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">lyrics</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+      <span class="k">if</span> <span class="n">qnt_palavras</span> <span class="o">&gt;</span><span class="mi">2</span><span class="p">:</span>
+         <span class="n">palavras_musica</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qnt_palavras</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">continue</span>
+      
+   <span class="n">musica_palavra_max</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;letra&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">lyrics</span><span class="p">[</span><span class="n">palavras_musica</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">palavras_musica</span><span class="p">))]]</span>
+   
+   <span class="n">musica_duracao_max</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;duração&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">duracao_musica</span><span class="p">)]</span>
+
+   <span class="n">musica_palavra_min</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;letra&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">lyrics</span><span class="p">[</span><span class="n">palavras_musica</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">palavras_musica</span><span class="p">))]]</span>
+   
+   <span class="n">musica_duracao_min</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;duração&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">min</span><span class="p">(</span><span class="n">duracao_musica</span><span class="p">)]</span>
+
+   <span class="k">if</span> <span class="n">musica_duracao_max</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">musica_palavra_max</span><span class="p">)</span> <span class="ow">or</span> <span class="n">musica_duracao_min</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">musica_palavra_min</span><span class="p">):</span>
+      <span class="k">return</span> <span class="kc">True</span>
+   <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="kc">False</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Luiza Schneider, Luana Hatab, Mateus Mourão.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

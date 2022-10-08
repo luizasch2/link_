@@ -1,0 +1,12 @@
+\indexentry{module@\spxentry{module}!functions@\spxentry{functions}|hyperpage}{1}
+\indexentry{functions@\spxentry{functions}!module@\spxentry{module}|hyperpage}{1}
+\indexentry{duracao\_album() (in module functions)@\spxentry{duracao\_album()}\spxextra{in module functions}|hyperpage}{1}
+\indexentry{maiores\_menores\_idx() (in module functions)@\spxentry{maiores\_menores\_idx()}\spxextra{in module functions}|hyperpage}{1}
+\indexentry{nouns() (in module functions)@\spxentry{nouns()}\spxextra{in module functions}|hyperpage}{1}
+\indexentry{palavras\_duracao() (in module functions)@\spxentry{palavras\_duracao()}\spxextra{in module functions}|hyperpage}{1}
+\indexentry{theme() (in module functions)@\spxentry{theme()}\spxextra{in module functions}|hyperpage}{2}
+\indexentry{wordcloud() (in module functions)@\spxentry{wordcloud()}\spxextra{in module functions}|hyperpage}{2}
+\indexentry{words() (in module functions)@\spxentry{words()}\spxextra{in module functions}|hyperpage}{2}
+\indexentry{words\_avg() (in module functions)@\spxentry{words\_avg()}\spxextra{in module functions}|hyperpage}{2}
+\indexentry{words\_freq() (in module functions)@\spxentry{words\_freq()}\spxextra{in module functions}|hyperpage}{2}
+\indexentry{words\_n\_stopwords() (in module functions)@\spxentry{words\_n\_stopwords()}\spxextra{in module functions}|hyperpage}{3}

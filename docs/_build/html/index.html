@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to A1 - Queens’s documentation! &mdash; A1 - Queens 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> A1 - Queens
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to A1 - Queens’s documentation!</a><ul>
+<li><a class="reference internal" href="#functions.duracao_album"><code class="docutils literal notranslate"><span class="pre">duracao_album()</span></code></a></li>
+<li><a class="reference internal" href="#functions.maiores_menores_idx"><code class="docutils literal notranslate"><span class="pre">maiores_menores_idx()</span></code></a></li>
+<li><a class="reference internal" href="#functions.nouns"><code class="docutils literal notranslate"><span class="pre">nouns()</span></code></a></li>
+<li><a class="reference internal" href="#functions.palavras_duracao"><code class="docutils literal notranslate"><span class="pre">palavras_duracao()</span></code></a></li>
+<li><a class="reference internal" href="#functions.theme"><code class="docutils literal notranslate"><span class="pre">theme()</span></code></a></li>
+<li><a class="reference internal" href="#functions.wordcloud"><code class="docutils literal notranslate"><span class="pre">wordcloud()</span></code></a></li>
+<li><a class="reference internal" href="#functions.words"><code class="docutils literal notranslate"><span class="pre">words()</span></code></a></li>
+<li><a class="reference internal" href="#functions.words_avg"><code class="docutils literal notranslate"><span class="pre">words_avg()</span></code></a></li>
+<li><a class="reference internal" href="#functions.words_freq"><code class="docutils literal notranslate"><span class="pre">words_freq()</span></code></a></li>
+<li><a class="reference internal" href="#functions.words_n_stopwords"><code class="docutils literal notranslate"><span class="pre">words_n_stopwords()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">A1 - Queens</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to A1 - Queens’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-functions">
+<span id="welcome-to-a1-queens-s-documentation"></span><h1>Welcome to A1 - Queens’s documentation!<a class="headerlink" href="#module-functions" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.duracao_album">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">duracao_album</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/functions.html#duracao_album"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.duracao_album" title="Permalink to this definition"></a></dt>
+<dd><p>Retorna uma série com o nome das músicas e suas durações em ordem decrescente</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe que possui como um dos índices os nomes das músicas e uma de suas colunas é a duração da música</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>série com o nome das músicas e suas durações em ordem decrescente</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.maiores_menores_idx">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">maiores_menores_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indice_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grupo_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coluna</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opcao</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/functions.html#maiores_menores_idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.maiores_menores_idx" title="Permalink to this definition"></a></dt>
+<dd><p>Monta um DataFrame com os elementos de maiores e menores valores por grupo e salva suas visualizações no path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe com indices individuais e multi-index</p></li>
+<li><p><strong>indice_idx</strong> (<em>str</em>) – nome do indice individual de cada elemento</p></li>
+<li><p><strong>grupo_idx</strong> (<em>str</em>) – indice coletivo dos elementos</p></li>
+<li><p><strong>coluna</strong> (<em>str</em>) – nome da coluna a ser analisada</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – caminho da pasta aonde a img deve ser salva</p></li>
+<li><p><strong>opcao</strong> (<em>int</em>) – 0 para retornar os menores elementos e 1 para os maiores</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>retorna um df com os elementos de maiores e menores valores por grupo e salva suas visualizações no path</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.nouns">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">nouns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/functions.html#nouns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.nouns" title="Permalink to this definition"></a></dt>
+<dd><p>Cria série com todos substantivos presentes nos elementos da série passada como parâmetro</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>pd.Series</em>) – série que terá seus elementos analisados</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>série apenas com os substantivos presentes na série passada como parâmetro</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.palavras_duracao">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">palavras_duracao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lyrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">albuns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/functions.html#palavras_duracao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.palavras_duracao" title="Permalink to this definition"></a></dt>
+<dd><p>Verifica se a quantidade de palavras esta relacionada com o tempo da música</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe com todas informações</p></li>
+<li><p><strong>lyrics</strong> (<em>pd.Series</em>) – série com as letras das músicas</p></li>
+<li><p><strong>albuns</strong> (<em>pd.Series</em>) – serie com o nome dos álbuns</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>retorna verdadeiro caso a quantidade de palavras esteja relacionada com a duração e falso caso não esteja</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.theme">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/functions.html#theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.theme" title="Permalink to this definition"></a></dt>
+<dd><p>Checa se os substantivos de series1 estão na series2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series1</strong> (<em>pd.Series</em>) – série pandas que origina os temas (substantivos)</p></li>
+<li><p><strong>series2</strong> (<em>pd.Series</em>) – série pandas onde os temas(substantivos) serão procurados</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>série pandas com os temas (substantivos) da series1 presentes na series2, de acordo com a frequencia</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.wordcloud">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">wordcloud</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/functions.html#wordcloud"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.wordcloud" title="Permalink to this definition"></a></dt>
+<dd><p>Cria wordcloud de série</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<em>pd.Series</em>) – série pandas cujas palavras geraram o wordcloud</p></li>
+<li><p><strong>file</strong> (<em>str</em>) – diretrizes para salvar o wordcloud</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.words">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/functions.html#words"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.words" title="Permalink to this definition"></a></dt>
+<dd><p>Cria série pandas com todas as palavras de series</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>pd.Series</em>) – série cujas palavras serão retornadas como elementos de uma nova série</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>série com todas as palavras presentes em “series” passado como parâmetro</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.words_avg">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">words_avg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/functions.html#words_avg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.words_avg" title="Permalink to this definition"></a></dt>
+<dd><p>Calcula média de palavras entre os elementos de uma série</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>pd.Series</em>) – série com as letras das músicas</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>média de palavras por música</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.words_freq">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">words_freq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coluna</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/functions.html#words_freq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.words_freq" title="Permalink to this definition"></a></dt>
+<dd><p>função retorna um dataframe com as frequencias das palavras mais freqentes da coluna por índice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe com todas informações</p></li>
+<li><p><strong>indice</strong> (<em>str</em>) – nome do indice pelo qual as frequenciais devem ser agrupadas</p></li>
+<li><p><strong>coluna</strong> (<em>str</em>) – nome da coluna que contem as strings com as palavras a serem analisadas</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dataframe com as frequencias das palavras mais frequentes da coluna por indice</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.words_n_stopwords">
+<span class="sig-prename descclassname"><span class="pre">functions.</span></span><span class="sig-name descname"><span class="pre">words_n_stopwords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/functions.html#words_n_stopwords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.words_n_stopwords" title="Permalink to this definition"></a></dt>
+<dd><p>Cria série pandas com as palavras de series que não são stopwords (i.e. pronomes e artigos)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>pd.Index</em>) – série cujas palavras serão filtradas e retornadas como elementos de uma nova série</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>série com as palavras que não são stopwords</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Luiza Schneider, Luana Hatab, Mateus Mourão.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
